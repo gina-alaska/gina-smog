@@ -2,7 +2,17 @@
 ## What is it?
 CLI wrapper around http://fog.io to interact with our libvirt hosts.
 
+
+## External dependencies
+
+### libvirt
+
+For OSX run:
+
+    brew install libvirt
+
 ## How to use it
+
 ### Clone the repo
 
 ```
