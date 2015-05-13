@@ -1,0 +1,26 @@
+---
+Metrics/MethodLength:
+  Max: 20
+Metrics/LineLength:
+  Max: 100
+  Exclude:
+    - lib/smog/cli.rb
+    - lib/smog/cli/**/*.rb
+Metrics/ClassLength:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 20
+Style/AndOr:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/SingleLineMethods:
+  Exclude:
+    - test/**/*.rb
+Style/TrivialAccessors:
+  Enabled: false
+AllCops:
+  Exclude:
+    - 'Guardfile'

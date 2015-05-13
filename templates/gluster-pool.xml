@@ -1,0 +1,15 @@
+<pool type='netfs'>
+  <name>%{name}</name>
+  <source>
+    <host name='%{host}'/>
+    <dir path='%{path}'/>
+    <format type='glusterfs'/>
+  </source>
+  <target>
+    <permissions>
+      <mode>0755</mode>
+      <owner>0</owner>
+      <group>0</group>
+    </permissions>
+  </target>
+</pool>

@@ -1,0 +1,12 @@
+<volume>
+  <name>%{name}</name>
+  <capacity unit='GiB'>%{size}</capacity>
+  <allocation unit='GiB'>%{size}</allocation>
+  <target>
+    <permissions>
+      <mode>0600</mode>
+      <owner>0</owner>
+      <group>6</group>
+    </permissions>
+  </target>
+</volume>
