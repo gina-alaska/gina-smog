@@ -24,7 +24,7 @@ module Smog
 
       puts "Booting #{@domain.name}.. please wait"
       ip = false
-      Fog.wait_for(120, 5) do
+      Fog.wait_for(300, 5) do
         puts @domain.public_ip_address
         ip = @domain.public_ip_address if @domain.public_ip_address
 
