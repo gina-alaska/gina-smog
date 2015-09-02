@@ -1,0 +1,14 @@
+<volume type='file' cache='none'>
+  <name>%{name}</name>
+  <capacity unit='GiB'>%{size}</capacity>
+  <allocation unit='GiB'>%{size}</allocation>
+  <target>
+    <path>%{path}/%{name}</path>
+    <format type='%{format}'/>
+    <permissions>
+      <mode>0644</mode>
+      <owner>0</owner>
+      <group>0</group>
+    </permissions>
+  </target>
+</volume>
