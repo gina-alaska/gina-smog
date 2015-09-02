@@ -38,6 +38,8 @@ module Smog
       uuid = if unique?
                require 'securerandom'
                SecureRandom.hex(2)
+             else
+               nil
              end
 
       config = {
