@@ -29,8 +29,11 @@ module Smog
       config[:volumes] = template.nil? ? [] : [clone_template(template, config[:name])]
 
       volumes.each do |vol|
-        config[:volumes] << volume_xml(vol[:pool], vol[:name], vol[:size], vol[:format])
+        config[:volumes] << volume_xml(vol[:pool], vol[:name], vol[:size], vol[:format_type])
       end
+
+      puts config.inspect
+
       domain = connection.servers.new(config)
 
       domain
@@ -44,10 +47,11 @@ module Smog
       connection.volumes.all(name: name).first
     end
 
-    def volume_xml(pool, name, size, fmt)
-      xml = Smog::DiskXml.for(connection, pool).render(name, size, fmt)
-      volume = connection.volumes.new(xml: xml, pool_name: pool)
+    def volume_xml(pool_name, name, size, fmt)
+      xml = Smog::DiskXml.for(connection, pool_name).render(name, size, fmt)
+      volume = connection.volumes.new(xml: xml, pool_name: pool_name, format_type: fmt)
       volume.save
+
       volume
     end
 

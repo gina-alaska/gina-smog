@@ -1,4 +1,4 @@
-<domain type='kvm'>
+<domain type='kvm--'>
   <name>%{name}</name>
   <memory unit='MiB'>%{memory}</memory>
   <currentMemory unit='MiB'>%{memory}</currentMemory>

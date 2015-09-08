@@ -11,7 +11,7 @@ module Smog
     end
 
     def render(name, size, fmt = 'qcow2')
-      opts = { path: pool_path, name: name, size: size, format: fmt }
+      opts = { path: pool_path, name: name, size: size, format_type: fmt }
       template("#{pool_type}-volume") % opts
     end
 

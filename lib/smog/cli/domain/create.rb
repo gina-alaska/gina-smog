@@ -16,22 +16,31 @@ module Smog
 
     def execute
       @conn = cluster.host(host)
-
       @domain = @conn.create_domain(config, template)
-      puts @domain.inspect
       @domain.save
-      @domain.start
 
-      puts "Booting #{@domain.name}.. please wait"
-      ip = false
-      Fog.wait_for(300, 5) do
-        puts @domain.public_ip_address
-        ip = @domain.public_ip_address if @domain.public_ip_address
-
-        ip
+      puts "#{@domain.name} created."
+      puts "CPU: #{@domain.cpus}"
+      puts "Memory: #{@domain.max_memory_size}"
+      @domain.nics.each_with_index do |network, idx|
+        puts "Network-#{idx}: "
+        puts " -- MAC: #{network.mac}"
+      end
+      @domain.volumes.each_with_index do |volume, idx|
+        puts "Disk-#{idx}: "
+        puts " -- Format: #{volume.format_type}"
+        puts " -- Capacity: #{volume.capacity}"
+        puts " -- Allocation: #{volume.allocation}"
       end
 
-      puts "#{@domain.name} booted with ip #{ip}"
+      puts "\n\nDHCP Configuration:"
+      puts "host #{@domain.name} {"
+      puts "  hardware ethernet #{@domain.nics.first.mac};"
+      puts "  fixed-address X.X.X.X;"
+      puts "}"
+
+      puts "\n\nDNS Entry:"
+      puts "update add #{@domain.name}.x.gina.alaska.edu 48600 IN A X.X.X.X"
     end
 
     def config
@@ -61,7 +70,7 @@ module Smog
       disk_list.each do |d|
         disk, size, fmt = d.split(',')
         size ||= '20'
-        fmt ||= 'qcow2'
+        fmt ||= 'raw'
         pool, disk = if disk.include?('/')
                        disk.split('/')
                      else
@@ -71,7 +80,7 @@ module Smog
           pool: pool,
           name: disk,
           size: size,
-          format: fmt
+          format_type: fmt
         }
       end
 
